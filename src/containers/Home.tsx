@@ -5,11 +5,8 @@ import {
   ChevronRight,
   ChevronUp,
 } from "lucide-react";
-import { useState } from "react";
 
 const Home = () => {
-  const [foodCount, setFoodCount] = useState(10);
-
   return (
     <section className="flex items-center relative gap-2.5 w-full h-full min-h-52 p-2 lg:px-10">
       <div className="lg:hidden !w-12 background-blur-green bg-teal-400"></div>
@@ -75,7 +72,7 @@ const Home = () => {
               <div className="flex flex-col p-1 w-full h-8 font-sm heading-md">
                 <p>// food left</p>
                 <div className="flex flex-wrap w-full gap-1 p-1 px-2">
-                  {new Array(foodCount).fill(null).map((_, index) => (
+                  {new Array(10).fill(null).map((_, index) => (
                     <div
                       className="h-1.5 w-1.5 border-2 border-teal-600 bg-teal-400 rounded-full"
                       key={index}

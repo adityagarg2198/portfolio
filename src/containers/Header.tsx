@@ -8,25 +8,21 @@ import {
 import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useState } from "react";
-
-export const Tabs = {
-  HELLO: "_hello",
-  ABOUT_ME: "_about-me",
-  PROJECTS: "_projects",
-  CONTACT: "_contact-me",
-} as const;
-
-export type TabType = (typeof Tabs)[keyof typeof Tabs];
+import { useActiveTab, useSetActiveTab, type TabType } from "@/store";
+import { Tabs } from "@/constants";
 
 const transition = "transition-colors duration-100 ease-in-out";
 
 const Header = () => {
-  const [activeTab, setActiveTab] = useState<TabType>(Tabs.HELLO);
+  const [isOpen, setIsOpen] = useState(false);
+  const setActiveTab = useSetActiveTab();
+  const activeTab = useActiveTab();
 
   const handleClick = (e: MouseEvent<HTMLElement>) => {
     const target = e.target as HTMLElement;
     const id = target?.id as TabType;
     setActiveTab(id);
+    setIsOpen(false);
   };
 
   return (
@@ -39,7 +35,7 @@ const Header = () => {
         >
           <li
             className={cn(
-              "flex-1/4 max-w-15 cursor-pointer heading-md",
+              "flex-1/4 max-w-15 cursor-pointer heading-md hover:border-b-2 border-b-orange-300",
               activeTab === Tabs.HELLO && "border-b-2 border-b-orange-300",
               transition
             )}
@@ -53,7 +49,7 @@ const Header = () => {
           </li>
           <li
             className={cn(
-              "flex-1/4 max-w-15 cursor-pointer heading-md",
+              "flex-1/4 max-w-15 cursor-pointer heading-md hover:border-b-2 border-b-orange-300",
               activeTab === Tabs.ABOUT_ME && "border-b-2 border-b-orange-300",
               transition
             )}
@@ -67,7 +63,7 @@ const Header = () => {
           </li>
           <li
             className={cn(
-              "flex-1/4 max-w-15 cursor-pointer heading-md",
+              "flex-1/4 max-w-15 cursor-pointer heading-md hover:border-b-2 border-b-orange-300",
               activeTab === Tabs.PROJECTS && "border-b-2 border-b-orange-300",
               transition
             )}
@@ -81,7 +77,7 @@ const Header = () => {
           </li>
           <li
             className={cn(
-              "cursor-pointer flex-1/4 ml-auto heading-md max-w-20",
+              "cursor-pointer flex-1/4 ml-auto heading-md max-w-20 hover:border-b-2 border-b-orange-300",
               activeTab === Tabs.CONTACT && "border-b-2 border-b-orange-300",
               transition
             )}
@@ -95,15 +91,18 @@ const Header = () => {
           </li>
         </ul>
         <section className="md:hidden">
-          <Drawer>
-            <DrawerTrigger className="p-1.5">
+          <Drawer open={isOpen}>
+            <DrawerTrigger className="p-1.5" onClick={() => setIsOpen(true)}>
               <Menu className="cursor-pointer" />
             </DrawerTrigger>
             <DrawerContent>
               <div className="flex flex-col border-primary font-md w-full h-full main-background">
                 <div className="flex justify-between p-1.5">
                   <p># navigate:</p>
-                  <DrawerClose className="cursor-pointer">
+                  <DrawerClose
+                    className="cursor-pointer"
+                    onClick={() => setIsOpen(false)}
+                  >
                     <X />
                   </DrawerClose>
                 </div>
@@ -111,7 +110,7 @@ const Header = () => {
                   <li
                     id={Tabs.HELLO}
                     className={cn(
-                      "flex-1/4 cursor-pointer heading-md block p-1.5 border-t border-b border-color"
+                      "flex-1/4 cursor-pointer heading-md block p-1.5 border-t border-b border-color hover:border hover:border-orange-300"
                     )}
                   >
                     _hello
@@ -119,7 +118,7 @@ const Header = () => {
                   <li
                     id={Tabs.ABOUT_ME}
                     className={cn(
-                      "flex-1/4 cursor-pointer heading-md block p-1.5 border-b border-color"
+                      "flex-1/4 cursor-pointer heading-md block p-1.5 border-b border-color hover:border hover:border-orange-300"
                     )}
                   >
                     _about-me
@@ -127,7 +126,7 @@ const Header = () => {
                   <li
                     id={Tabs.PROJECTS}
                     className={cn(
-                      "flex-1/4 cursor-pointer heading-md block p-1.5 border-b border-color"
+                      "flex-1/4 cursor-pointer heading-md block p-1.5 border-b border-color hover:border hover:border-orange-300"
                     )}
                   >
                     _projects
@@ -135,7 +134,7 @@ const Header = () => {
                   <li
                     id={Tabs.CONTACT}
                     className={cn(
-                      "flex-1/4 cursor-pointer heading-md block p-1.5 border-b border-color"
+                      "flex-1/4 cursor-pointer heading-md block p-1.5 border-b border-color hover:border hover:border-orange-300"
                     )}
                   >
                     _contact-me

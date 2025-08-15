@@ -18,6 +18,8 @@
   :root {
     --spacing: 1rem;
     --color-orange-300: #ffb86a;
+    --color-teal-400: #00d5be;
+    --color-indigo-500: #615fff;
   }
 }
 
@@ -48,12 +50,67 @@
     font-weight: 450;
   }
 
+  .font-sm {
+    color: #90a1b9;
+    font-size: 1.4rem;
+    font-weight: 450;
+  }
+
+  .font-lg {
+    color: #90a1b9;
+    font-size: 1.8rem;
+    font-weight: 450;
+  }
+
   .heading-md {
     color: #f8fafc;
+  }
+
+  .heading-h1 {
+    color: #f8fafc;
+    font-size: 6rem;
+    font-weight: 450;
+  }
+
+  .heading-h2 {
+    color: #f8fafc;
+    font-size: 4.8rem;
+    font-weight: 450;
+  }
+
+  .heading-h4 {
+    color: #615fff;
+    font-weight: 450;
+    font-size: 3rem;
+  }
+
+  .heading-h6 {
+    color: #615fff;
+    font-weight: 450;
+    font-size: 2rem;
+  }
+
+  .link-forground {
+    color: #ffa1ad;
+  }
+
+  @media (max-width: 767px) {
+    .heading-h1 {
+      font-size: 4.8rem;
+    }
+
+    .heading-h4 {
+      font-size: 2rem;
+    }
+
+    .font-md {
+      font-size: 1.4rem;
+    }
   }
 }
 
 #root {
   height: 100%;
   width: 100%;
+  overflow-y: auto;
 }

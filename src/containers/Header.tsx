@@ -10,6 +10,7 @@ import { cn } from "@/lib/utils";
 import { useState } from "react";
 import { useActiveTab, useSetActiveTab, type TabType } from "@/store";
 import { Tabs } from "@/constants";
+import { useResetBodyInlineStyles } from "@/hooks/useResetBodyInlineStyles";
 
 const transition = "transition-colors duration-100 ease-in-out";
 
@@ -24,6 +25,8 @@ const Header = () => {
     setActiveTab(id);
     setIsOpen(false);
   };
+
+  useResetBodyInlineStyles(isOpen);
 
   return (
     <header className="border-b border-color w-full h-fit font-md">

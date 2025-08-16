@@ -1,3 +1,4 @@
+import About from "@/containers/About";
 import Footer from "@/containers/Footer";
 import Header from "@/containers/Header";
 import Home from "@/containers/Home";
@@ -10,6 +11,9 @@ const Portfolio = () => {
     switch (activeTab) {
       case "_hello": {
         return <Home />;
+      }
+      case "_about-me": {
+        return <About />;
       }
     }
   };

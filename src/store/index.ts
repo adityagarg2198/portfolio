@@ -19,6 +19,16 @@ interface AppState {
   gameOver: "start" | "completed" | "over" | "playing";
   setGameOver: (value: "start" | "completed" | "over" | "playing") => void;
   resetGame: () => void;
+  filesContent: {
+    id: string;
+    label: string;
+    content: string[];
+  }[];
+  setFilesContent: (value: {
+    id: string;
+    label: string;
+    content: string[];
+  }) => void;
 }
 
 const useAppStore = create<AppState>((set) => ({
@@ -45,6 +55,28 @@ const useAppStore = create<AppState>((set) => ({
       snakeFood: 0,
       food: { x: 10, y: 10 },
     }),
+  filesContent: [
+    {
+      id: "bachelor",
+      label: "Bachelor's",
+      content: [
+        "aK9fLdZ0Qx",
+        "Pq7RmbNwT3",
+        "Xy2sD4uE1Z",
+        "nM8kG0tVjL",
+        "Hq3rPz9xWf",
+      ],
+    },
+    {
+      id: "master",
+      label: "Master's",
+      content: ["aK9fLdZ0Qx", "Pq7RmbNwT3", "Xy2sD4uE1Z", "nM8kG0tVjL"],
+    },
+  ],
+  setFilesContent: (value) =>
+    set((state) => ({
+      filesContent: [...state.filesContent, value],
+    })),
 }));
 
 // --- Active Tab ---
@@ -72,3 +104,7 @@ export const useGameOver = () => useAppStore((state) => state.gameOver);
 export const useSetGameOver = () => useAppStore((state) => state.setGameOver);
 
 export const useResetGame = () => useAppStore((state) => state.resetGame);
+
+export const useFilesContent = () => useAppStore((state) => state.filesContent);
+export const useAddFilesContent = () =>
+  useAppStore((state) => state.setFilesContent);

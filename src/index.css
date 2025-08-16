@@ -17,6 +17,7 @@
   }
   :root {
     --spacing: 1rem;
+    --color-slate-50: #f8fafc;
     --color-orange-300: #ffb86a;
     --color-teal-400: #00d5be;
     --color-teal-500: #00bba7;
@@ -243,4 +244,27 @@
   height: 100%;
   width: 100%;
   overflow-y: auto;
+}
+
+.code-line {
+  counter-increment: line;
+  position: relative;
+  padding-left: 4rem;
+}
+
+.code-line::before {
+  content: counter(line);
+  position: absolute;
+  left: 0;
+  width: 2rem;
+  text-align: right;
+  user-select: none;
+}
+
+.first-line::after {
+  content: " /**";
+}
+
+.last-line::after {
+  content: " */";
 }

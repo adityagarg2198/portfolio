@@ -23,6 +23,8 @@
     --color-teal-900: #0b4f4a;
     --color-teal-950: #022f2e;
     --color-indigo-500: #615fff;
+    --popover: #011627d6;
+    --popover-foreground: #00d5be;
   }
 }
 
@@ -135,6 +137,7 @@
   }
 
   .game-display {
+    position: relative;
     border: 8px solid;
     height: 40rem;
     width: 20rem;

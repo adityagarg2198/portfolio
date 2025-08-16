@@ -5,8 +5,52 @@ import {
   ChevronRight,
   ChevronUp,
 } from "lucide-react";
+import Snakegame from "./Snakegame";
+import {
+  useGameOver,
+  useResetGame,
+  useSetGameOver,
+  useSnakeFood,
+} from "@/store";
+import { toast } from "sonner";
+import { useEffect } from "react";
+import { Toaster } from "@/components/ui/sonner";
 
 const Home = () => {
+  const snakeFood = useSnakeFood();
+  const gameStatus = useGameOver();
+  const resetGame = useResetGame();
+
+  const setGameStatus = useSetGameOver();
+
+  const handleButtonClick = () => {
+    if (gameStatus === "start") {
+      setGameStatus("playing");
+    } else {
+      resetGame();
+    }
+  };
+
+  useEffect(() => {
+    if (gameStatus === "completed") {
+      toast("COMPLETED 🚀", {
+        position: "top-center",
+        style: {
+          fontSize: "2rem",
+          width: "fit-content",
+        },
+      });
+    } else if (gameStatus === "over") {
+      toast("GAME OVER! 😢", {
+        position: "top-center",
+        style: {
+          fontSize: "2rem",
+          width: "fit-content",
+        },
+      });
+    }
+  }, [gameStatus]);
+
   return (
     <section className="flex items-center relative gap-2.5 w-full h-full min-h-52 p-2 lg:px-10">
       <div className="lg:hidden !w-12 background-blur-green bg-teal-400"></div>
@@ -46,8 +90,9 @@ const Home = () => {
               <X size={10} className="text-teal-900" />
             </div>
           </div>
+          <Toaster />
           <div className="flex gap-3 px-1">
-            <div className="game-display flex"></div>
+            <Snakegame />
             <div className="flex game-info flex-col">
               <div className="flex flex-col p-1 game-ctrl font-sm heading-md">
                 <p>// use keyboard</p>
@@ -72,16 +117,25 @@ const Home = () => {
               <div className="flex flex-col p-1 w-full h-8 font-sm heading-md">
                 <p>// food left</p>
                 <div className="flex flex-wrap w-full gap-1 p-1 px-2">
-                  {new Array(10).fill(null).map((_, index) => (
+                  {new Array(10 - snakeFood).fill(null).map((_, index) => (
                     <div
                       className="h-1.5 w-1.5 border-2 border-teal-600 bg-teal-400 rounded-full"
                       key={index}
                     ></div>
                   ))}
+                  {new Array(snakeFood).fill(null).map((_, index) => (
+                    <div
+                      className="h-1.5 w-1.5 border-2 border-teal-600 bg-white-400 rounded-full"
+                      key={index}
+                    ></div>
+                  ))}
                 </div>
               </div>
-              <button className="border mt-auto ml-auto min-h-4 w-6 font-sm heading-md rounded-xl border-slate-50">
-                skip
+              <button
+                onClick={handleButtonClick}
+                className="mt-auto cursor-pointer ml-auto min-h-4 w-10 text-2xl  text-teal-950 rounded-xl bg-orange-300"
+              >
+                {gameStatus === "start" ? "Start" : "Re-Start"}
               </button>
             </div>
           </div>
